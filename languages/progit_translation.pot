@@ -1,0 +1,59 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Preview URL with QR Code and Thumbnail "
+"image\n"
+"POT-Creation-Date: 2017-04-19 03:37+0500\n"
+"PO-Revision-Date: 2017-04-19 02:49+0500\n"
+"Language-Team: progit\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-KeywordsList: yourls__;yourls_e;yourls_s;yourls_se;"
+"yourls_esc_attr__;yourls_esc_html__;yourls_x;yourls_ex;"
+"yourls_esc_attr_x;yourls_esc_html_x;yourls_n:1,2;"
+"yourls_nx:1,2;yourls_n_noop:1,2;yourls_nx_noop:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: plugin.php:36 plugin.php:108
+msgid "Preview short URL"
+msgstr ""
+
+#: plugin.php:115
+msgid "You requested a shortened URL"
+msgstr ""
+
+#: plugin.php:116
+msgid "This URL points to"
+msgstr ""
+
+#: plugin.php:119
+msgid "Long URL"
+msgstr ""
+
+#: plugin.php:122
+msgid "Title"
+msgstr ""
+
+#: plugin.php:125
+msgid "QR code"
+msgstr ""
+
+#: plugin.php:133
+msgid "If you still want to visit this URL, please go to"
+msgstr ""
+
+#: plugin.php:135
+msgid "this URL"
+msgstr ""
+
+#: plugin.php:140
+msgid ""
+"You will be redirected to another page. We are not "
+"responsible for the content of this page."
+msgstr ""

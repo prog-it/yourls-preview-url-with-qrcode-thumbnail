@@ -3,7 +3,7 @@
 Plugin Name: Preview URL with QR Code and Thumbnail image
 Plugin URI: https://github.com/prog-it/yourls-preview-url-with-qrcode-thumbnail
 Description: Preview URLs before you're redirected there with QR code and Thumbnail image
-Version: 1.0
+Version: 1.1
 Author: progit
 Author URI: https://github.com/prog-it
 */
@@ -12,38 +12,13 @@ Author URI: https://github.com/prog-it
 
 // Character to add to a short URL to trigger the preview interruption
 define( 'PROGIT_PREVIEW_CHAR', '~' );
-// Type translation. 1 - Custom translation or 2 - English
-define( 'PROGIT_TRANSLATION_TYPE', 1 );
-
-// Translation
-class Trans {
-	// Do not edit key!
-	private static $trans = array(
-		'Preview short URL' => 'Предпросмотр сокращенного URL',
-		'You requested a shortened URL' => 'Вы запросили сокращенный URL',
-		'This URL points to' => 'Этот URL указывает на',
-		'Long URL' => 'Длинный URL',
-		'Title' => 'Описание',
-		'QR code' => 'QR код',
-		'If you still want to visit this URL, please go to' => 'Если вы все еще хотите посетить этот URL, пожалуйста, перейдите по',
-		'this URL' => 'этой ссылке',
-		'You will be redirected to another page. We are not responsible for the content of this page.' => 'Вы будете перенаправлены на другую страницу. Мы не несем ответственности за содержание этой страницы и последствий, которые могут иметь это для вас.',
-	);
-	
-	public static function get($key) {
-		if ( PROGIT_TRANSLATION_TYPE == 1) {
-			return self::$trans[$key];
-		} else {
-			return $key;
-		}
-	}	
-}
 
 
 // Handle failed loader request and check if there's a ~
 yourls_add_action( 'loader_failed', 'progit_preview_loader_failed' );
 
 function progit_preview_loader_failed( $args ) {
+	yourls_load_custom_textdomain( 'progit_translation', dirname( __FILE__ ) . '/languages' );
 	$request = $args[0];
 	$pattern = yourls_make_regexp_pattern( yourls_get_shorturl_charset() );
 	if( preg_match( "@^([$pattern]+)".PROGIT_PREVIEW_CHAR."$@", $request, $matches ) ) {
@@ -57,10 +32,9 @@ function progit_preview_loader_failed( $args ) {
 // Show the preview screen for a short URL
 function progit_preview_show( $keyword ) {
 	require_once( YOURLS_INC.'/functions-html.php' );
-	$trans = new Trans;
 
-	yourls_html_head( 'preview', $trans->get('Preview short URL') );
-	//yourls_html_logo();
+	yourls_html_head( 'preview', yourls__('Preview short URL', 'progit_translation') );
+	yourls_html_logo();
 
 	$title = yourls_get_keyword_title( $keyword );
 	$url   = yourls_get_keyword_longurl( $keyword );
@@ -70,95 +44,101 @@ function progit_preview_show( $keyword ) {
 	$qrcode = YOURLS_SITE.'/'.$keyword.'.qr';
 	// Required this plugin - https://github.com/prog-it/yourls-thumbnail-url
 	$thumb = YOURLS_SITE.'/'.$keyword.'.i';
+	?>
 
-	echo <<<HTML
 	<style>
+	.halves {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		justify-content: space-between;
+		-webkit-justify-content: space-between;
+		-moz-justify-content: space-between;
+		align-items: flex-start;
+		-webkit-align-items: flex-start;
+		-moz-align-items: flex-start;
+	}
+	.half-width {
+		
+	}
+	.desc-box {
+		line-height: 1.6em;
+		width: 65%;
+	}		
+	.thumb-box {
+		margin-right: 10px;
+	}
+	.short-thumb {
+		width: 326px;
+		height: 245px;
+		border: 5px solid #151720;
+	}	
+	.short-qr {
+		border: 1px solid #ccc;
+		width: 100px;
+		margin-top: 3px;
+	}
+	hr {
+		margin: 10px 0;
+		border: 0;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #fff;
+		display: block;
+		clear: both;
+	}
+	.disclaimer {
+		color: #aaa;
+	}
+	/* Mobile */
+	@media screen and (max-width: 720px) {
 		.halves {
-			display: flex;
-			display: -webkit-flex;
-			display: -moz-flex;
-			justify-content: space-between;
-			-webkit-justify-content: space-between;
-			-moz-justify-content: space-between;
-			align-items: flex-start;
-			-webkit-align-items: flex-start;
-			-moz-align-items: flex-start;
+			display: block;
 		}
 		.half-width {
-			
+			width: 100%;
+		}
+		.thumb-box {
+			margin: 0;
 		}
 		.desc-box {
-			line-height: 1.6em;
-			width: 65%;
-		}		
-		.thumb-box {
-			margin-right: 10px;
+			
 		}
-		.short-thumb {
-			width: 326px;
-			height: 245px;
-			border: 5px solid #151720;
-		}	
-		.short-qr {
-			border: 1px solid #ccc;
-			width: 100px;
-			margin-top: 3px;
-		}
-		hr {
-			margin: 10px 0;
-			border: 0;
-			border-top: 1px solid #eee;
-			border-bottom: 1px solid #fff;
-			display: block;
-			clear: both;
-		}
-		.disclaimer {
-			color: #aaa;
-		}
-		/* Mobile */
-		@media screen and (max-width: 720px) {
-			.halves {
-				display: block;
-			}
-			.half-width {
-				width: 100%;
-			}
-			.thumb-box {
-				margin: 0;
-			}
-			.desc-box {
-				
-			}		
-		}		
+	}		
 	</style>
-	<h2>{$trans->get('Preview short URL')}</h2>
+	<h2><?php yourls_e('Preview short URL', 'progit_translation'); ?></h2>
 	<div class="halves">
 		<div class="half-width thumb-box">
-			<img class="short-thumb" src="$thumb">
+			<img class="short-thumb" src="<?php echo $thumb; ?>">
 		</div>
 		<div class="half-width desc-box">
 			<div>
-				{$trans->get('You requested a shortened URL')} <strong>$base/$keyword</strong>
-				<p>{$trans->get('This URL points to')}:</p>		
+				<?php yourls_e('You requested a shortened URL', 'progit_translation'); ?> <strong><?php echo "$base/$keyword"; ?></strong>
+				<p><?php yourls_e('This URL points to', 'progit_translation'); ?>:</p>		
 			</div>
 			<div>
-				{$trans->get('Long URL')}: <strong><a href="$base/$keyword">$url</a></strong>
+				<?php yourls_e('Long URL', 'progit_translation'); ?> : <strong><a href="<?php echo "$base/$keyword"; ?>"><?php  echo $url; ?></a></strong>
 			</div>
 			<div>
-				{$trans->get('Title')}: <strong>$title</strong>
+				<?php yourls_e('Title', 'progit_translation'); ?>: <strong><?php echo $title; ?></strong>
 			</div>
 			<div>
-				{$trans->get('QR code')}:
+				<?php yourls_e('QR code', 'progit_translation'); ?>:
 				<div>
-					<img class="short-qr" src="$qrcode">
+					<img class="short-qr" src="<?php echo $qrcode; ?>">
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>{$trans->get('If you still want to visit this URL, please go to')} <strong><a href="$base/$keyword">{$trans->get('this URL')}</a></strong>.</p>
+	<p>
+		<?php yourls_e('If you still want to visit this URL, please go to', 'progit_translation'); ?> 
+		<strong>
+			<a href="<?php echo "$base/$keyword"; ?>"><?php yourls_e('this URL', 'progit_translation'); ?></a>
+		</strong>.
+	</p>
 	<hr>
-	<div class="disclaimer">{$trans->get('You will be redirected to another page. We are not responsible for the content of this page.')}</div>
-HTML;
-
+	<div class="disclaimer">
+		<?php yourls_e('You will be redirected to another page. We are not responsible for the content of this page.', 'progit_translation'); ?>
+	</div>
+<?php
 	yourls_html_footer();
 }
