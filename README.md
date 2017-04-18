@@ -2,7 +2,6 @@
 
 Plugin for [YOURLS](http://yourls.org) `1.5+`.
 
-
 Description
 -----------
 Add the character '~' to a short URL to display a preview page with QR code and Thumbnail image before redirection.
@@ -11,7 +10,7 @@ Requirements
 -----------
 The following plugins should already be installed and activated:
 1. [YOURLS QRCode](https://github.com/seandrickson/YOURLS-QRCode-Plugin) or [Google Chart API QR Code Plugin](https://github.com/YOURLS/YOURLS/wiki/Plugin-%3D-QRCode-ShortURL)
-2. [Thumbnail Image URL](https://github.com/prog-it/yourls-thumbnail-url)
+2. [Thumbnail URL image](https://github.com/prog-it/yourls-thumbnail-url)
 
 Installation
 ------------
