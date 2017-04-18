@@ -73,17 +73,27 @@ function progit_preview_show( $keyword ) {
 
 	echo <<<HTML
 	<style>
-		.thumb-box,
-		.desc-box {
-			display: inline-block;
-			vertical-align: top;
+		.halves {
+			display: flex;
+			display: -webkit-flex;
+			display: -moz-flex;
+			justify-content: space-between;
+			-webkit-justify-content: space-between;
+			-moz-justify-content: space-between;
+			align-items: flex-start;
+			-webkit-align-items: flex-start;
+			-moz-align-items: flex-start;
+		}
+		.half-width {
+			
 		}
 		.desc-box {
 			line-height: 1.6em;
+			width: 65%;
 		}		
 		.thumb-box {
 			margin-right: 10px;
-		}	
+		}
 		.short-thumb {
 			width: 326px;
 			height: 245px;
@@ -105,26 +115,43 @@ function progit_preview_show( $keyword ) {
 		.disclaimer {
 			color: #aaa;
 		}
+		/* Mobile */
+		@media screen and (max-width: 720px) {
+			.halves {
+				display: block;
+			}
+			.half-width {
+				width: 100%;
+			}
+			.thumb-box {
+				margin: 0;
+			}
+			.desc-box {
+				
+			}		
+		}		
 	</style>
 	<h2>{$trans->get('Preview short URL')}</h2>
-	<div class="thumb-box">
-		<img class="short-thumb" src="$thumb">
-	</div>
-	<div class="desc-box">
-		<div>
-			{$trans->get('You requested a shortened URL')} <strong>$base/$keyword</strong>
-			<p>{$trans->get('This URL points to')}:</p>		
+	<div class="halves">
+		<div class="half-width thumb-box">
+			<img class="short-thumb" src="$thumb">
 		</div>
-		<div>
-			{$trans->get('Long URL')}: <strong><a href="$base/$keyword">$url</a></strong>
-		</div>
-		<div>
-			{$trans->get('Title')}: <strong>$title</strong>
-		</div>
-		<div>
-			{$trans->get('QR code')}:
+		<div class="half-width desc-box">
 			<div>
-				<img class="short-qr" src="$qrcode">
+				{$trans->get('You requested a shortened URL')} <strong>$base/$keyword</strong>
+				<p>{$trans->get('This URL points to')}:</p>		
+			</div>
+			<div>
+				{$trans->get('Long URL')}: <strong><a href="$base/$keyword">$url</a></strong>
+			</div>
+			<div>
+				{$trans->get('Title')}: <strong>$title</strong>
+			</div>
+			<div>
+				{$trans->get('QR code')}:
+				<div>
+					<img class="short-qr" src="$qrcode">
+				</div>
 			</div>
 		</div>
 	</div>
