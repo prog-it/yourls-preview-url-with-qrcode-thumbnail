@@ -36,14 +36,15 @@ function progit_preview_show( $keyword ) {
 	yourls_html_head( 'preview', yourls__('Preview short URL', 'progit_translation') );
 	yourls_html_logo();
 
-	$title = yourls_get_keyword_title( $keyword );
-	$url   = yourls_get_keyword_longurl( $keyword );
-	$base  = YOURLS_SITE;
-	$char  = PROGIT_PREVIEW_CHAR;
+	$title		= yourls_get_keyword_title( $keyword );
+	$base		= YOURLS_SITE;
+	$shorturl	= "$base/$keyword";
+	$longurl	= yourls_get_keyword_longurl( $keyword );
+	$char  		= PROGIT_PREVIEW_CHAR;
 	// Required this plugin - https://github.com/seandrickson/YOURLS-QRCode-Plugin
-	$qrcode = YOURLS_SITE.'/'.$keyword.'.qr';
+	$qrcode 	= YOURLS_SITE.'/'.$keyword.'.qr';
 	// Required this plugin - https://github.com/prog-it/yourls-thumbnail-url
-	$thumb = YOURLS_SITE.'/'.$keyword.'.i';
+	$thumb		= YOURLS_SITE.'/'.$keyword.'.i';
 	?>
 
 	<style>
@@ -108,15 +109,15 @@ function progit_preview_show( $keyword ) {
 	<h2><?php yourls_e('Preview short URL', 'progit_translation'); ?></h2>
 	<div class="halves">
 		<div class="half-width thumb-box">
-			<img class="short-thumb" src="<?php echo $thumb; ?>">
+			<img class="short-thumb" src="<?php echo yourls_esc_url( $thumb ); ?>">
 		</div>
 		<div class="half-width desc-box">
 			<div>
-				<?php yourls_e('You requested a shortened URL', 'progit_translation'); ?> <strong><?php echo "$base/$keyword"; ?></strong>
+				<?php yourls_e('You requested a shortened URL', 'progit_translation'); ?> <strong><?php echo yourls_esc_url( $shorturl ); ?></strong>
 				<p><?php yourls_e('This URL points to', 'progit_translation'); ?>:</p>		
 			</div>
 			<div>
-				<?php yourls_e('Long URL', 'progit_translation'); ?> : <strong><a href="<?php echo "$base/$keyword"; ?>"><?php  echo $url; ?></a></strong>
+				<?php yourls_e('Long URL', 'progit_translation'); ?> : <strong><a href="<?php echo yourls_esc_url( $shorturl ); ?>"><?php  echo yourls_esc_url( $longurl ); ?></a></strong>
 			</div>
 			<div>
 				<?php yourls_e('Title', 'progit_translation'); ?>: <strong><?php echo $title; ?></strong>
@@ -124,7 +125,7 @@ function progit_preview_show( $keyword ) {
 			<div>
 				<?php yourls_e('QR code', 'progit_translation'); ?>:
 				<div>
-					<img class="short-qr" src="<?php echo $qrcode; ?>">
+					<img class="short-qr" src="<?php echo yourls_esc_url( $qrcode ); ?>">
 				</div>
 			</div>
 		</div>
@@ -132,7 +133,7 @@ function progit_preview_show( $keyword ) {
 	<p>
 		<?php yourls_e('If you still want to visit this URL, please go to', 'progit_translation'); ?> 
 		<strong>
-			<a href="<?php echo "$base/$keyword"; ?>"><?php yourls_e('this URL', 'progit_translation'); ?></a>
+			<a href="<?php echo yourls_esc_url( $shorturl ); ?>"><?php yourls_e('this URL', 'progit_translation'); ?></a>
 		</strong>.
 	</p>
 	<hr>
