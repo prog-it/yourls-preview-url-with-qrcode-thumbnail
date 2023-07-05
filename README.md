@@ -9,7 +9,7 @@ Add the character '~' to a short URL to display a preview page with QR code and 
 Requirements
 -----------
 The following plugins should already be installed and activated:
-1. [YOURLS QRCode](https://github.com/seandrickson/YOURLS-QRCode-Plugin) or [Google Chart API QR Code Plugin](https://github.com/YOURLS/YOURLS/wiki/Plugin-%3D-QRCode-ShortURL)
+1. [YOURLS QRCode](https://github.com/seandrickson/YOURLS-QRCode-Plugin) or [Google Chart API QR Code Plugin](https://yourls.org/docs/development/examples/qrcode)
 2. [Thumbnail URL image](https://github.com/prog-it/yourls-thumbnail-url)
 
 Installation
